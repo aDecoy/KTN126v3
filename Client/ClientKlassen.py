@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import socket
+import datetime
 import json
 from Client.MessageParser import MessageParser
+from Client.MessageReceiver import MessageReceiver
+
 
 
 class ClientKlassen:
@@ -10,7 +13,8 @@ class ClientKlassen:
     """
     host=""
     server_port=1
-    messageParser=MessageParser()
+    messageParser=MessageParser
+    username="ikke logget inn"
 
     def __init__(self, host, server_port):
         """
@@ -24,8 +28,8 @@ class ClientKlassen:
         
         # TODO: Finish init process with necessary code
 
-
-        #msg =  MessageParser()
+        messagereciveer=MessageReceiver(self,self.connection)
+        messageParser =  MessageParser(self)
 
         self.run()
 
@@ -34,12 +38,43 @@ class ClientKlassen:
         print(self.host,self.server_port)
         self.connection.connect((self.host, self.server_port))
         print("connected!!!!")
+        print("skriv inn: login <username>")
+
+
 
         while True:
-            user_input==input()
-            if (user_input=="disconect"):
-                self.disconnect()
-            if user_input
+            user_input=input()
+            print(user_input)
+            tid=str(datetime.datetime.utcnow())
+            if (self.username=="ikke logget inn"):
+                if (user_input=='hjelp' or user_input=='help'):
+                   # self.connection.send(bytes("{ 'timestamp': '"+tid+"' 'sender': 'None' 'request': 'help' 'content': 'None'", 'utf-8'))
+                   # self.connection.send(bytes("{ 'timestamp': '"+tid+"' 'sender': 'None' 'request': 'help' 'content': 'None'}",'utf-8'))
+
+                if (user_input.startswith("login")):
+                    rygsekk=user_input.split()
+                    self.username=rygsekk[1]
+                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'login' 'content':'"+rygsekk[1]+"'}",'utf-8'))
+            else:
+
+                if (user_input=="help"):
+                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'help' 'content':'None'}",'utf-8'))
+
+                if (user_input=="names"):
+                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'names' 'content':'None'}",'utf-8'))
+
+
+                if (user_input.startswith("login")):
+                    rygsekk=user_input.split()
+                    self.username=rygsekk[1]
+                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'login' 'content':'"+rygsekk[1]+"'}",'utf-8'))
+
+                if (user_input=="logout"):
+                    self.connection.send(bytes("{ 'timestamp':'"+tid+"' 'sender': '"+self.username+"' 'request': 'logout' 'content':'None'}",'utf-8'))
+                else:
+                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'msg' 'content':'"+user_input+"'}",'utf-8'))
+
+
 
 
     def disconnect(self):
@@ -48,13 +83,11 @@ class ClientKlassen:
         pass
 
     def receive_message(self, message):
-        # TODO: Handle incoming message
-        print(message)
+       # print(message)
         self.send_payload(message)
         pass
 
     def send_payload(self, data):
-        # TODO: Handle sending of a payload
         print(self.messageParser.parse(data))
         pass
         

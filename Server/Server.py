@@ -24,12 +24,14 @@ class ClientHandler(socketserver.BaseRequestHandler):
 
         # Loop that listens for messages from the client
         while True:
-            received_string = self.connection.recv(4096)
+            received_string = self.connection.recv(4096).decode()
 
 
-            # TODO: Add handling of received payload from client
+            # TODO: Add handling of
+            #
+            #  payload from client
             print(received_string)
-
+            print(received_string['request'])
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     """
