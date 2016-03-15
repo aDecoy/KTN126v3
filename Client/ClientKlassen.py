@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import socket
+import json
 from Client.MessageParser import MessageParser
 
 
@@ -9,6 +10,7 @@ class ClientKlassen:
     """
     host=""
     server_port=1
+    messageParser=MessageParser()
 
     def __init__(self, host, server_port):
         """
@@ -33,7 +35,12 @@ class ClientKlassen:
         self.connection.connect((self.host, self.server_port))
         print("connected!!!!")
 
-        self.disconnect()
+        while True:
+            user_input==input()
+            if (user_input=="disconect"):
+                self.disconnect()
+            if user_input
+
 
     def disconnect(self):
         self.connection.close()
@@ -48,8 +55,7 @@ class ClientKlassen:
 
     def send_payload(self, data):
         # TODO: Handle sending of a payload
-        msg= MessageParser()
-        msg.parse(data)
+        print(self.messageParser.parse(data))
         pass
         
     # More methods may be needed!
