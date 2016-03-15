@@ -30,7 +30,7 @@ class MessageParser():
         if payload['content'] == "Login successful":
             self.client_logged_in = True
         elif payload['content'] == "Logout successful":
-            self.client_logged_in == False
+            self.client_logged_in = False
         return payload['content']
 
     def parse_message(self, payload):
