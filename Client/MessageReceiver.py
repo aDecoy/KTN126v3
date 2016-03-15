@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from threading import Thread
+from socket import *
+import json
 
 class MessageReceiver(Thread):
     """
@@ -12,12 +14,18 @@ class MessageReceiver(Thread):
         """
         This method is executed when creating a new MessageReceiver object
         """
-
+        self.client = client
+        self.connection = connection
+        super(MessageReceiver, self).__init__()
         # Flag to run thread as a deamon
         self.daemon = True
+        self.shouldStop = False
 
-        # TODO: Finish initialization of MessageReceiver
+
+
 
     def run(self):
-        # TODO: Make MessageReceiver receive and handle payloads
-        pass
+        while True:
+            json_response = self.connection.recv(1024)
+            if json_response:
+                self.client.receive_message(json_response)

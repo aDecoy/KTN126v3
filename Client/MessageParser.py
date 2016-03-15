@@ -1,24 +1,53 @@
-
+import json
 
 class MessageParser():
-    def __init__(self):
+    def __init__(self, client):
+
+        self.client = client
 
         self.possible_responses = {
             'error': self.parse_error,
             'info': self.parse_info,
-	    # More key:values pairs are needed	
+            'message': self.parse_message,
+            'history': self.parse_history,
+            'names': self.parse_names
         }
 
-    def parse(self, payload):
-        payload = # decode the JSON object
 
+    def parse(self, json_string, catch=None):
+        #Decode the JSON object
+        payload = json.loads(payload.decode('utf-8'))
+        print(payload)
         if payload['response'] in self.possible_responses:
             return self.possible_responses[payload['response']](payload)
         else:
-            # Response not valid
+            raise ValueError('Response not valid')
 
     def parse_error(self, payload):
-    
+        return payload['content']
+
     def parse_info(self, payload):
-    
-    # Include more methods for handling the different responses... 
+        if payload['content'] == "Login successful":
+            self.client_logged_in = True
+        elif payload['content'] == "Logout successful":
+            self.client_logged_in == False
+        return payload['content']
+
+    def parse_message(self, payload):
+        return payload['sender'] + ": " + payload['content']
+
+    def parse_names(self, payload):
+        names = payload['content']
+        nameList = "Users in lobby:" + "\n"
+        for name in names:
+            nameList += name + "\n"
+        return nameList
+
+    def parse_history(self, payload):
+        json_list = json.loads(payload['content'])
+        history = ""
+        for item in json_list:
+            history += self.parse_message(item) + "\n"
+        return history
+
+    # Include more methods for handling the different responses...
