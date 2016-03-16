@@ -71,6 +71,7 @@ class ClientKlassen:
 
                 if (user_input=="logout"):
                     self.connection.send(bytes('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}','utf-8'))
+                    self.username="ikke logget inn"
                 else:
                     self.connection.send(bytes('{ "timestamp":"'+tid +'", "sender": "'+self.username+'", "request": "msg" ,"content":"'+user_input+'"}','utf-8'))
 
