@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import socketserver
+import json
 
 """
 Variables and functions that must be used by all the ClientHandler objects
@@ -26,12 +27,16 @@ class ClientHandler(socketserver.BaseRequestHandler):
         while True:
             received_string = self.connection.recv(4096).decode()
 
-
+            s=str(received_string)
             # TODO: Add handling of
             #
             #  payload from client
-            print(received_string)
-            print(received_string['request'])
+            print(s)
+            j = json.loads(s)
+            print(j["content"])
+           # print(j['content'])
+
+
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     """

@@ -48,31 +48,31 @@ class ClientKlassen:
             tid=str(datetime.datetime.utcnow())
             if (self.username=="ikke logget inn"):
                 if (user_input=='hjelp' or user_input=='help'):
-                   # self.connection.send(bytes("{ 'timestamp': '"+tid+"' 'sender': 'None' 'request': 'help' 'content': 'None'", 'utf-8'))
-                   # self.connection.send(bytes("{ 'timestamp': '"+tid+"' 'sender': 'None' 'request': 'help' 'content': 'None'}",'utf-8'))
+                   # self.connection.send(bytes('{ "content": "None" }', 'utf-8'))
+                    self.connection.send(bytes('{ "timestamp": "'+tid+'", "sender": "None" , "request": "help" ,"content": "None" }', 'utf-8'))
 
                 if (user_input.startswith("login")):
                     rygsekk=user_input.split()
                     self.username=rygsekk[1]
-                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'login' 'content':'"+rygsekk[1]+"'}",'utf-8'))
+                    self.connection.send(bytes('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+'", "request": "login" ,"content":"'+rygsekk[1]+'"}','utf-8'))
             else:
 
                 if (user_input=="help"):
-                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'help' 'content':'None'}",'utf-8'))
+                    self.connection.send(bytes('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+' ,"request": "help" ,"content":"None"}','utf-8'))
 
                 if (user_input=="names"):
-                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'names' 'content':'None'}",'utf-8'))
+                    self.connection.send(bytes('{ "timestamp":"'+tid +'", "sender": "'+self.username+'" ,"request": "names" ,"content":"None"}','utf-8'))
 
 
                 if (user_input.startswith("login")):
                     rygsekk=user_input.split()
                     self.username=rygsekk[1]
-                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'login' 'content':'"+rygsekk[1]+"'}",'utf-8'))
+                    self.connection.send(bytes('{ "timestamp":"'+tid +'" ,"sender": "'+self.username+'" ,"request": "login" ,"content":"'+rygsekk[1]+'"}','utf-8'))
 
                 if (user_input=="logout"):
-                    self.connection.send(bytes("{ 'timestamp':'"+tid+"' 'sender': '"+self.username+"' 'request': 'logout' 'content':'None'}",'utf-8'))
+                    self.connection.send(bytes('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}','utf-8'))
                 else:
-                    self.connection.send(bytes("{ 'timestamp':'"+tid +"' 'sender': '"+self.username+"' 'request': 'msg' 'content':'"+user_input+"'}",'utf-8'))
+                    self.connection.send(bytes('{ "timestamp":"'+tid +'", "sender": "'+self.username+'", "request": "msg" ,"content":"'+user_input+'"}','utf-8'))
 
 
 
