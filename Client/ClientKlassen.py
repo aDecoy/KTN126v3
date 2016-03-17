@@ -100,6 +100,7 @@ class ClientKlassen:
 
     def send_payload(self, data):
         streng = self.messageParser.parse(data)
+        print("sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
         print(streng)
         pass
         
