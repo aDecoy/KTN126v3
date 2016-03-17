@@ -4,14 +4,10 @@ import datetime
 import json
 from MessageParser import MessageParser
 from MessageReceiver import MessageReceiver
-<<<<<<< HEAD
 import threading
 
-
-=======
 #from Client.MessageParser import MessageParser
 #from Client.MessageReceiver import MessageReceiver
->>>>>>> origin/master
 
 class ClientKlassen:
     """
@@ -59,11 +55,8 @@ class ClientKlassen:
 
         while True:
             user_input = raw_input()
-<<<<<<< HEAD
             #print(user_input)
-=======
             #user_input = input()       #python 3
->>>>>>> origin/master
             tid=str(datetime.datetime.utcnow())
             if (self.username=="ikke logget inn"):
                 if (user_input=='hjelp' or user_input=='help'):
@@ -86,17 +79,12 @@ class ClientKlassen:
                 if (user_input.startswith("login")):
                     rygsekk=user_input.split()
                     self.username=rygsekk[1]
-<<<<<<< HEAD
                     send_json(tid,self.username,"login",rygsekk[1])
 
                 if (user_input=="logout"):
                     json_send(tid,self.username,"logout","None")
-=======
-                    self.connection.send('{ "timestamp":"'+tid +'" ,"sender": "'+self.username+'" ,"request": "login" ,"content":"'+rygsekk[1]+'"}')
 
                 if (user_input=="logout"):
-                    self.connection.send('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}')
->>>>>>> origin/master
                     self.username="ikke logget inn"
                 else:
                     send_json(tid,self.username,"msg",user_input)
