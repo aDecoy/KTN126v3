@@ -2,8 +2,8 @@
 import socket
 import datetime
 import json
-from Client.MessageParser import MessageParser
-from Client.MessageReceiver import MessageReceiver
+from MessageParser import MessageParser
+from MessageReceiver import MessageReceiver
 
 
 
@@ -43,37 +43,37 @@ class ClientKlassen:
 
 
         while True:
-            user_input=input()
+            user_input = raw_input()
             print(user_input)
             tid=str(datetime.datetime.utcnow())
             if (self.username=="ikke logget inn"):
                 if (user_input=='hjelp' or user_input=='help'):
                    # self.connection.send(bytes('{ "content": "None" }', 'utf-8'))
-                    self.connection.send(bytes('{ "timestamp": "'+tid+'", "sender": "None" , "request": "help" ,"content": "None" }', 'utf-8'))
+                    self.connection.send('{ "timestamp": "'+tid+'", "sender": "None" , "request": "help" ,"content": "None" }')
 
                 if (user_input.startswith("login")):
                     rygsekk=user_input.split()
                     self.username=rygsekk[1]
-                    self.connection.send(bytes('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+'", "request": "login" ,"content":"'+rygsekk[1]+'"}','utf-8'))
+                    self.connection.send('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+'", "request": "login" ,"content":"'+rygsekk[1]+'"}')
             else:
 
                 if (user_input=="help"):
-                    self.connection.send(bytes('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+' ,"request": "help" ,"content":"None"}','utf-8'))
+                    self.connection.send('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+' ,"request": "help" ,"content":"None"}')
 
                 if (user_input=="names"):
-                    self.connection.send(bytes('{ "timestamp":"'+tid +'", "sender": "'+self.username+'" ,"request": "names" ,"content":"None"}','utf-8'))
+                    self.connection.send('{ "timestamp":"'+tid +'", "sender": "'+self.username+'" ,"request": "names" ,"content":"None"}')
 
 
                 if (user_input.startswith("login")):
                     rygsekk=user_input.split()
                     self.username=rygsekk[1]
-                    self.connection.send(bytes('{ "timestamp":"'+tid +'" ,"sender": "'+self.username+'" ,"request": "login" ,"content":"'+rygsekk[1]+'"}','utf-8'))
+                    self.connection.send('{ "timestamp":"'+tid +'" ,"sender": "'+self.username+'" ,"request": "login" ,"content":"'+rygsekk[1]+'"}','utf-8')
 
                 if (user_input=="logout"):
-                    self.connection.send(bytes('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}','utf-8'))
+                    self.connection.send('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}','utf-8')
                     self.username="ikke logget inn"
                 else:
-                    self.connection.send(bytes('{ "timestamp":"'+tid +'", "sender": "'+self.username+'", "request": "msg" ,"content":"'+user_input+'"}','utf-8'))
+                    self.connection.send('{ "timestamp":"'+tid +'", "sender": "'+self.username+'", "request": "msg" ,"content":"'+user_input+'"}')
 
 
 
@@ -102,4 +102,4 @@ if __name__ == '__main__':
 
     No alterations are necessary
     """
-    client = ClientKlassen('127.0.0.1', 9998)
+    client = ClientKlassen('78.91.10.1', 9998)

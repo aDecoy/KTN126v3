@@ -27,7 +27,8 @@ class ClientHandler(SocketServer.BaseRequestHandler): #ServerSocket is all lower
     """
     def send_all(self,time,sender,response,content):
         json_object = json.dumps({"timestamp" : time, "sender" : sender, "response" : response, "content" : content})
-        for user in users.itervalues():
+        for key,user in users.iteritems():
+            print("Sending to: %s" %key)
             #if user != self:
             user.connection.send(json_object)
 
