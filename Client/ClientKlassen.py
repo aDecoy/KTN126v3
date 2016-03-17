@@ -4,8 +4,8 @@ import datetime
 import json
 from MessageParser import MessageParser
 from MessageReceiver import MessageReceiver
-
-
+#from Client.MessageParser import MessageParser
+#from Client.MessageReceiver import MessageReceiver
 
 class ClientKlassen:
     """
@@ -44,7 +44,7 @@ class ClientKlassen:
 
         while True:
             user_input = raw_input()
-            print(user_input)
+            #user_input = input()       #python 3
             tid=str(datetime.datetime.utcnow())
             if (self.username=="ikke logget inn"):
                 if (user_input=='hjelp' or user_input=='help'):
@@ -67,10 +67,10 @@ class ClientKlassen:
                 if (user_input.startswith("login")):
                     rygsekk=user_input.split()
                     self.username=rygsekk[1]
-                    self.connection.send('{ "timestamp":"'+tid +'" ,"sender": "'+self.username+'" ,"request": "login" ,"content":"'+rygsekk[1]+'"}','utf-8')
+                    self.connection.send('{ "timestamp":"'+tid +'" ,"sender": "'+self.username+'" ,"request": "login" ,"content":"'+rygsekk[1]+'"}')
 
                 if (user_input=="logout"):
-                    self.connection.send('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}','utf-8')
+                    self.connection.send('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}')
                     self.username="ikke logget inn"
                 else:
                     self.connection.send('{ "timestamp":"'+tid +'", "sender": "'+self.username+'", "request": "msg" ,"content":"'+user_input+'"}')
