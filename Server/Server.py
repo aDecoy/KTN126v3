@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
+
 import SocketServer #ServerSocket is all lower case in Python 3
 import datetime
 import json
 import time
 
-=======
-import socketserver
-import json
->>>>>>> origin/master
 
 """
 Variables and functions that must be used by all the ClientHandler objects
