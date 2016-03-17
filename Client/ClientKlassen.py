@@ -70,18 +70,18 @@ class ClientKlassen:
                         send_json(tid,self.username,"login",rygsekk[1])
             else:
 
-                else if (user_input=="help"):
+                if (user_input=="help"):
                     send_json(tid,self.username,"help","None")
 
-                else if (user_input=="names"):
+                elif (user_input=="names"):
                     send_json(tid,self.username,"names","None")
 
-                else if (user_input=="logout"):
+                elif (user_input=="logout"):
                     send_json(tid,self.username,"logout","None")
                     self.username="ikke logget inn"
 
 
-                else if (user_input=="close"):
+                elif (user_input=="close"):
                     self.disconnect()
 
 
