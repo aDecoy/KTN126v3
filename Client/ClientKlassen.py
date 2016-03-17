@@ -36,8 +36,6 @@ class ClientKlassen:
 
         self.run()
 
-
-
     def run(self):
         # Initiate the connection to the server
         print(self.host,self.server_port)
@@ -47,7 +45,6 @@ class ClientKlassen:
 
         def send_json(time,sender,request,content):
             package = json.dumps({ "timestamp": time, "sender": sender , "request": request ,"content": content })
-            print(package)
             self.connection.send(package)
 
         t = threading.Thread(target=self.messagereceiver.run)
@@ -55,10 +52,12 @@ class ClientKlassen:
 
         while True:
             user_input = raw_input()
-            #print(user_input)
             #user_input = input()       #python 3
             tid=str(datetime.datetime.utcnow())
             if (self.username=="ikke logget inn"):
+                if (user_input=="close"):
+                     self.disconnect()
+
                 if (user_input=='hjelp' or user_input=='help'):
                    # self.connection.send(bytes('{ "content": "None" }', 'utf-8'))
                     send_json(tid,"None","help" ,"None")
@@ -83,9 +82,12 @@ class ClientKlassen:
 
                 if (user_input=="logout"):
                     json_send(tid,self.username,"logout","None")
-
-                if (user_input=="logout"):
                     self.username="ikke logget inn"
+
+
+                if (user_input=="close"):
+                    self.disconnect()
+
                 else:
                     send_json(tid,self.username,"msg",user_input)
 
