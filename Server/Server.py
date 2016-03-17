@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 import SocketServer #ServerSocket is all lower case in Python 3
 import datetime
 import json
 import time
 
+=======
+import socketserver
+import json
+>>>>>>> origin/master
 
 """
 Variables and functions that must be used by all the ClientHandler objects
@@ -48,6 +53,7 @@ class ClientHandler(SocketServer.BaseRequestHandler): #ServerSocket is all lower
 
         # Loop that listens for messages from the client
         while True:
+<<<<<<< HEAD
             received_json = self.connection.recv(4096)
             #Access the dictionary insode the JSON object to get the dictionary
             message = json.loads(received_json)
@@ -150,6 +156,19 @@ class ClientHandler(SocketServer.BaseRequestHandler): #ServerSocket is all lower
                 print ("Request form %s was not of correct type" %username)
                 response_message = "Request type seems to not be valid"
                 self.send_self(now,server_send,error,response_message)
+=======
+            received_string = self.connection.recv(4096).decode()
+
+            s=str(received_string)
+            # TODO: Add handling of
+            #
+            #  payload from client
+            print(s)
+            j = json.loads(s)
+            print(j["content"])
+           # print(j['content'])
+
+>>>>>>> origin/master
 
         self.connection.close()
 
