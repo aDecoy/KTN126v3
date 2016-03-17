@@ -63,29 +63,25 @@ class ClientKlassen:
                     send_json(tid,"None","help" ,"None")
 
                 if (user_input.startswith("login")):
+
                     rygsekk=user_input.split()
-                    self.username=rygsekk[1]
-                    send_json(tid,self.username,"login",rygsekk[1])
+                    if (user_input.count(" ")>0):
+                        self.username=rygsekk[1]
+                        send_json(tid,self.username,"login",rygsekk[1])
             else:
 
-                if (user_input=="help"):
+                else if (user_input=="help"):
                     send_json(tid,self.username,"help","None")
 
-                if (user_input=="names"):
+                else if (user_input=="names"):
                     send_json(tid,self.username,"names","None")
 
-
-                if (user_input.startswith("login")):
-                    rygsekk=user_input.split()
-                    self.username=rygsekk[1]
-                    send_json(tid,self.username,"login",rygsekk[1])
-
-                if (user_input=="logout"):
+                else if (user_input=="logout"):
                     send_json(tid,self.username,"logout","None")
                     self.username="ikke logget inn"
 
 
-                if (user_input=="close"):
+                else if (user_input=="close"):
                     self.disconnect()
 
 
