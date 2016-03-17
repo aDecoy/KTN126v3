@@ -16,7 +16,13 @@ class MessageParser():
 
     def parse(self, json_string, catch=None):
         #Decode the JSON object
+<<<<<<< HEAD
         payload = json.loads(json_string)
+=======
+       # payload = json.loads(json_string.decode('utf-8'))
+        payload = json.loads(json_string)
+
+>>>>>>> origin/master
         print(payload)
         if payload['response'] in self.possible_responses:
             return self.possible_responses[payload['response']](payload)

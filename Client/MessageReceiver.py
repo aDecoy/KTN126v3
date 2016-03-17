@@ -20,13 +20,17 @@ class MessageReceiver(Thread):
         # Flag to run thread as a deamon
         self.daemon = True
         self.shouldStop = False
-
+        self.run()
 
 
 
     def run(self):
         while True:
+<<<<<<< HEAD
             print("MessageReceiver running")
+=======
+>>>>>>> origin/master
             json_response = self.connection.recv(4096)
             if json_response:
                 self.client.receive_message(json_response)
+                print(json_response)
