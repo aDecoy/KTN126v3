@@ -27,10 +27,10 @@ class ClientHandler(SocketServer.BaseRequestHandler): #ServerSocket is all lower
     """
     def send_all(self,time,sender,response,content):
         json_object = json.dumps({"timestamp" : time, "sender" : sender, "response" : response, "content" : content})
-        for key,user in users.iteritems():
+        for key,send_user in users.iteritems():
             print("Sending to: %s" %key)
             #if user != self:
-            user.connection.send(json_object)
+            send_user.connection.send(json_object)
 
     def send_self(self,time,sender,response,content):
         json_object = json.dumps({"timestamp" : time, "sender" : sender, "response" : response, "content" : content})
@@ -58,6 +58,7 @@ class ClientHandler(SocketServer.BaseRequestHandler): #ServerSocket is all lower
             # Needs to be configured to a better format
             now = datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p") #use datetime.now() in Pyhton 3
 
+            print(received_json)
             #If it is a login request
             if message["request"] == "login":
                 print("Recieved a login request")
@@ -143,7 +144,7 @@ class ClientHandler(SocketServer.BaseRequestHandler): #ServerSocket is all lower
                 self.send_self(now,server_send,info,response_message)
 
             elif message.get("request") == "help":
-                print("Help request sent by %s" %username)
+                print("Help requested")
                 #Help is not filled out, didn't have time to fill it out right now..
                 response_message = "There should be a help string here"
                 self.send_self(now,server_send,info,response_message)

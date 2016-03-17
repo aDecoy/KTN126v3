@@ -26,6 +26,7 @@ class MessageReceiver(Thread):
 
     def run(self):
         while True:
-            json_response = self.connection.recv(1024)
+            print("MessageReceiver running")
+            json_response = self.connection.recv(4096)
             if json_response:
                 self.client.receive_message(json_response)
