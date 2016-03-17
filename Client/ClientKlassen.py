@@ -81,12 +81,13 @@ class ClientKlassen:
                     send_json(tid,self.username,"login",rygsekk[1])
 
                 if (user_input=="logout"):
-                    json_send(tid,self.username,"logout","None")
+                    send_json(tid,self.username,"logout","None")
                     self.username="ikke logget inn"
 
 
                 if (user_input=="close"):
                     self.disconnect()
+
 
                 else:
                     send_json(tid,self.username,"msg",user_input)
@@ -118,4 +119,4 @@ if __name__ == '__main__':
 
     No alterations are necessary
     """
-    client = ClientKlassen('78.91.10.1', 9998)
+    client = ClientKlassen('78.91.24.143', 9998)
