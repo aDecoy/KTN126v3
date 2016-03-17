@@ -6,6 +6,7 @@ from MessageParser import MessageParser
 from MessageReceiver import MessageReceiver
 #from Client.MessageParser import MessageParser
 #from Client.MessageReceiver import MessageReceiver
+import threading
 
 class ClientKlassen:
     """
@@ -15,6 +16,7 @@ class ClientKlassen:
     server_port=1
     messageParser=MessageParser
     username="ikke logget inn"
+    messagereciver=MessageReceiver
 
     def __init__(self, host, server_port):
         """
@@ -28,8 +30,8 @@ class ClientKlassen:
         
         # TODO: Finish init process with necessary code
 
-        messagereciveer=MessageReceiver(self,self.connection)
-        messageParser =  MessageParser(self)
+        self.messagereciver=MessageReceiver(self,self.connection)
+        self.messageParser =  MessageParser(self)
 
         self.run()
 
@@ -40,13 +42,17 @@ class ClientKlassen:
         print("connected!!!!")
         print("skriv inn: login <username>")
 
-
+        t = threading.Thread(target=self.messagereciver.run)
+        t.start()
 
         while True:
             user_input = raw_input()
             #user_input = input()       #python 3
             tid=str(datetime.datetime.utcnow())
             if (self.username=="ikke logget inn"):
+                if (user_input=="close"):
+                     self.disconnect()
+
                 if (user_input=='hjelp' or user_input=='help'):
                    # self.connection.send(bytes('{ "content": "None" }', 'utf-8'))
                     self.connection.send('{ "timestamp": "'+tid+'", "sender": "None" , "request": "help" ,"content": "None" }')
@@ -58,7 +64,7 @@ class ClientKlassen:
             else:
 
                 if (user_input=="help"):
-                    self.connection.send('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+' ,"request": "help" ,"content":"None"}')
+                    self.connection.send('{ "timestamp": "'+tid +'" ,"sender": "'+self.username+'" ,"request": "help" ,"content": "None"}')
 
                 if (user_input=="names"):
                     self.connection.send('{ "timestamp":"'+tid +'", "sender": "'+self.username+'" ,"request": "names" ,"content":"None"}')
@@ -72,6 +78,10 @@ class ClientKlassen:
                 if (user_input=="logout"):
                     self.connection.send('{ "timestamp":"'+tid+'" ,"sender": "'+self.username+'" ,"request": "logout" ,"content":"None"}')
                     self.username="ikke logget inn"
+
+                if (user_input=="close"):
+                    self.disconnect()
+
                 else:
                     self.connection.send('{ "timestamp":"'+tid +'", "sender": "'+self.username+'", "request": "msg" ,"content":"'+user_input+'"}')
 
@@ -89,7 +99,8 @@ class ClientKlassen:
         pass
 
     def send_payload(self, data):
-        print(self.messageParser.parse(data))
+        streng = self.messageParser.parse(data)
+        print(streng)
         pass
         
     # More methods may be needed!
@@ -103,3 +114,4 @@ if __name__ == '__main__':
     No alterations are necessary
     """
     client = ClientKlassen('78.91.10.1', 9998)
+#
